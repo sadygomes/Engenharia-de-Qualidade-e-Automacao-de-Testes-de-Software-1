@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambiente de Testes Avançado do Sady</title>
+    <style>
+        /* Variáveis de Cores Internas (Tema Dark/Blue Corporativo) */
+        :root {
+            --bg-principal: #f0f2f5;
+            --bg-card: #ffffff;
+            --texto-principal: #1c1e21;
+            --texto-secundario: #65676b;
+            --cor-primaria: #1877f2;
+            --cor-primaria-hover: #166fe5;
+            --cor-sucesso: #42b72a;
+            --cor-erro: #e41e3f;
+            --borda: #ced0d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* BARRA LATERAL DE NAVEGAÇÃO */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--borda);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .logo-empresa {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--cor-primaria);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--texto-principal);
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #e7f3ff;
+            color: var(--cor-primaria);
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER SUPERIOR */
+        .top-header {
+            height: 60px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--borda);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 40px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--cor-primaria);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* ÁREA DOS CARDS (FEED) */
+        .feed-container {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* CAIXA DE CRIAÇÃO DE POST */
+        .box-criacao {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .box-criacao h2 {
+            font-size: 16px;
+            color: var(--texto-secundario);
+            margin-bottom: 12px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        #campo-postagem {
+            width: 100%;
+            height: 80px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #campo-postagem:focus {
+            border-color: var(--cor-primaria);
+        }
+
+        .contador-caracteres {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 12px;
+            color: var(--texto-secundario);
+        }
+
+        .botoes-acoes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #mensagem-alerta {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        #btn-publicar {
+            background-color: var(--cor-primaria);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #btn-publicar:hover {
+            background-color: var(--cor-primaria-hover);
+        }
+
+        /* ESTILO DOS POSTS NO FEED */
+        .post-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            animation: surgir 0.3s ease-out;
+        }
+
+        @keyframes surgir {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .post-info-usuario {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-autor {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .post-data {
+            font-size: 12px;
+            color: var(--texto-secundario);
+        }
+
+        .post-conteudo {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--texto-principal);
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA LATERAL NAVEGÁVEL -->
+    <aside class="sidebar">
+        <div class="logo-empresa">💼 Portal Sady S/A</div>
+        <a href="#" class="nav-link active">🏠 Início / Feed</a>
+        <a href="#" class="nav-link">📊 Desempenho</a>
+        <a href="#" class="nav-link">👥 Equipe</a>
+        <a href="#" class="nav-link">⚙️ Configurações</a>
+    </aside>
+
+    <!-- ÁREA DE CONTEÚDO DA DIREITA -->
+    <main class="main-container">
+        
+        <!-- CABEÇALHO SUPERIOR -->
+        <header class="top-header">
+            <div class="user-profile">
+                <div class="avatar">SD</div>
+                <span>Sady Developer</span>
+            </div>
+        </header>
+
+        <!-- CONTAINER DO FEED -->
+        <div class="feed-container">
+            
+            <!-- CAIXA DE CRIAÇÃO -->
+            <section class="box-criacao">
+                <h2>No que você está pensando hoje?</h2>
+                <div class="input-wrapper">
+                    <textarea id="campo-postagem" maxlength="100" placeholder="Compartilhe uma atualização com a empresa..."></textarea>
+                    <span class="contador-caracteres" id="contador">0/100</span>
+                </div>
+                <div class="botoes-acoes">
+                    <p id="mensagem-alerta"></p>
+                    <button id="btn-publicar">Publicar no Feed</button>
+                </div>
+            </section>
+
+            <!-- CONTAINER ONDE OS POSTS VÃO APARECER DINAMICAMENTE -->
+            <div id="feed-dinamico">
+                <!-- Post de exemplo fixo -->
+                <article class="post-card">
+                    <div class="post-header">
+                        <div class="avatar" style="background-color: #65676b;">RH</div>
+                        <div class="post-info-usuario">
+                            <span class="post-autor">Recursos Humanos</span>
+                            <span class="post-data">Postado agora mesmo</span>
+                        </div>
+                    </div>
+                    <div class="post-conteudo">
+                        Bem-vindo ao novo layout do Portal Sady! Teste o sistema criando uma nova publicação acima.
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const input = document.getElementById('campo-postagem');
+        const btn = document.getElementById('btn-publicar');
+        const alerta = document.getElementById('mensagem-alerta');
+        const contador = document.getElementById('contador');
+        const feed = document.getElementById('feed-dinamico');
+
+        // Atualiza o contador de caracteres enquanto o usuário digita
+        input.addEventListener('input', () => {
+            contador.innerText = `${input.value.length}/100`;
+        });
+
+        // Evento de publicação
+        btn.addEventListener('click', () => {
+            const texto = input.value.trim();
+            
+            if (texto === "") {
+                alerta.style.color = "var(--cor-erro)";
+                alerta.innerText = "Erro: Digite algo antes de postar!";
+                return;
+            }
+
+            // Se chegou aqui, deu certo! Limpa o alerta antigo
+            alerta.style.color = "var(--cor-sucesso)";
+            alerta.innerText = "Postado com sucesso!";
+
+            // 1. Cria a estrutura do novo post dinamicamente
+            const novoPost = document.createElement('article');
+            novoPost.classList.add('post-card');
+
+            // Pega o horário atual formatado
+            const horaAtual = new String(new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}));
+
+            novoPost.innerHTML = `
+                <div class="post-header">
+                    <div class="avatar">SD</div>
+                    <div class="post-info-usuario">
+                        <span class="post-autor">Sady Developer</span>
