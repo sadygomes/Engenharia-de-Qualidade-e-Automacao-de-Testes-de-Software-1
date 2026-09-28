@@ -7,15 +7,15 @@
     <style>
         /* Variáveis de Cores Internas (Tema Dark/Blue Corporativo) */
         :root {
-            --bg-principal: #f0f2f5;
-            --bg-card: #ffffff;
-            --texto-principal: #1c1e21;
-            --texto-secundario: #65676b;
-            --cor-primaria: #1877f2;
-            --cor-primaria-hover: #166fe5;
-            --cor-sucesso: #42b72a;
-            --cor-erro: #e41e3f;
-            --borda: #ced0d4;
+            --bg-principal: #0b1329;       /* Fundo da tela escuro (Azul Noite Profundo) */
+            --bg-card: #1c2541;            /* Fundo dos Cards, Sidebar e Header */
+            --texto-principal: #f8fafc;     /* Texto principal em branco fosco (Alto contraste) */
+            --texto-secundario: #94a3b8;    /* Textos secundários em cinza azulado */
+            --cor-primaria: #2563eb;       /* Azul Corporativo Vibrante */
+            --cor-primaria-hover: #1d4ed8;  /* Azul mais escuro para o botão */
+            --cor-sucesso: #10b981;
+            --cor-erro: #ef4444;
+            --borda: #2c3a5f;              /* Bordas escuras sutis */
         }
 
         * {
@@ -46,7 +46,7 @@
         .logo-empresa {
             font-size: 20px;
             font-weight: bold;
-            color: var(--cor-primaria);
+            color: #ffffff;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -57,14 +57,14 @@
             padding: 12px;
             border-radius: 8px;
             text-decoration: none;
-            color: var(--texto-principal);
+            color: var(--texto-secundario);
             font-weight: 600;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
         }
 
         .nav-link:hover, .nav-link.active {
-            background-color: #e7f3ff;
-            color: var(--cor-primaria);
+            background-color: rgba(37, 99, 235, 0.2); /* Fundo azul translúcido */
+            color: #ffffff;
         }
 
         /* CONTEÚDO PRINCIPAL */
@@ -121,13 +121,13 @@
             background-color: var(--bg-card);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--borda);
         }
 
         .box-criacao h2 {
             font-size: 16px;
-            color: var(--texto-secundario);
+            color: var(--texto-principal);
             margin-bottom: 12px;
         }
 
@@ -141,6 +141,8 @@
             height: 80px;
             padding: 12px;
             font-size: 16px;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
             border: 1px solid var(--borda);
             border-radius: 8px;
             resize: none;
@@ -192,8 +194,8 @@
             background-color: var(--bg-card);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--borda);
             animation: surgir 0.3s ease-out;
         }
 
@@ -275,56 +277,19 @@
                 <!-- Post de exemplo fixo -->
                 <article class="post-card">
                     <div class="post-header">
-                        <div class="avatar" style="background-color: #65676b;">RH</div>
+                        <div class="avatar" style="background-color: #64748b;">RH</div>
                         <div class="post-info-usuario">
                             <span class="post-autor">Recursos Humanos</span>
                             <span class="post-data">Postado agora mesmo</span>
                         </div>
                     </div>
                     <div class="post-conteudo">
-                        Bem-vindo ao novo layout do Portal Sady! Teste o sistema criando uma nova publicação acima.
+                        Bem-vindo ao novo layout corporativo. O ambiente dark foi configurado com sucesso!
                     </div>
                 </article>
             </div>
-
         </div>
     </main>
 
-    <script>
-        const input = document.getElementById('campo-postagem');
-        const btn = document.getElementById('btn-publicar');
-        const alerta = document.getElementById('mensagem-alerta');
-        const contador = document.getElementById('contador');
-        const feed = document.getElementById('feed-dinamico');
-
-        // Atualiza o contador de caracteres enquanto o usuário digita
-        input.addEventListener('input', () => {
-            contador.innerText = `${input.value.length}/100`;
-        });
-
-        // Evento de publicação
-        btn.addEventListener('click', () => {
-            const texto = input.value.trim();
-            
-            if (texto === "") {
-                alerta.style.color = "var(--cor-erro)";
-                alerta.innerText = "Erro: Digite algo antes de postar!";
-                return;
-            }
-
-            // Se chegou aqui, deu certo! Limpa o alerta antigo
-            alerta.style.color = "var(--cor-sucesso)";
-            alerta.innerText = "Postado com sucesso!";
-
-            // 1. Cria a estrutura do novo post dinamicamente
-            const novoPost = document.createElement('article');
-            novoPost.classList.add('post-card');
-
-            // Pega o horário atual formatado
-            const horaAtual = new String(new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}));
-
-            novoPost.innerHTML = `
-                <div class="post-header">
-                    <div class="avatar">SD</div>
-                    <div class="post-info-usuario">
-                        <span class="post-autor">Sady Developer</span>
+</body>
+</html>
