@@ -1,32 +1,352 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Ambiente de Testes Avançado do Sady</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Pessoal do Sady</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0a0a0d;
+            color: #eeeeff;
+        }
+
+        /* MENU LATERAL */
+        .menu-lateral {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #17171d;
+            border-right: 1px solid #30303b;
+            padding: 28px 16px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #85859a;
+            font-size: 12px;
+            margin-bottom: 35px;
+        }
+
+        .menu-lateral h3 {
+            color: #77778b;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 12px 14px;
+        }
+
+        .menu-opcao {
+            display: block;
+            width: 100%;
+            padding: 15px 14px;
+            margin-bottom: 8px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-opcao:hover,
+        .menu-opcao.ativa {
+            background: #25252f;
+            border-color: #393946;
+            transform: translateX(3px);
+        }
+
+        .vida { color: #32cfff; }
+        .proposito { color: #bd83ff; }
+        .saude { color: #4de39a; }
+        .amor { color: #ff70ae; }
+        .profissional { color: #ffb454; }
+
+        /* CONTEÚDO PRINCIPAL */
+        .conteudo {
+            margin-left: 250px;
+            padding: 45px;
+        }
+
+        .topo {
+            padding-bottom: 25px;
+            border-bottom: 1px solid #292933;
+            margin-bottom: 30px;
+        }
+
+        .topo h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+            color: #ffffff;
+        }
+
+        .topo p {
+            color: #9999ad;
+            margin: 0;
+        }
+
+        .painel {
+            background: #17171d;
+            border: 1px solid #30303b;
+            border-radius: 12px;
+            padding: 28px;
+            min-height: 220px;
+        }
+
+        .painel h2 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .painel p {
+            color: #b4b4c5;
+            line-height: 1.7;
+        }
+
+        .linha {
+            width: 55px;
+            height: 4px;
+            border-radius: 5px;
+            margin-bottom: 22px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 14px;
+            background: #0e0e13;
+            color: #eeeeff;
+            border: 1px solid #383845;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        textarea:focus {
+            outline: 1px solid #7777ff;
+        }
+
+        .salvar {
+            margin-top: 14px;
+            padding: 12px 20px;
+            background: #292942;
+            color: #b9b9ff;
+            border: 1px solid #5555a0;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .salvar:hover {
+            background: #38385c;
+        }
+
+        #mensagem {
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .menu-lateral {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px 14px;
+                border-right: none;
+                border-bottom: 1px solid #30303b;
+            }
+
+            .subtitulo {
+                margin-bottom: 20px;
+            }
+
+            .menu-lateral h3 {
+                margin-top: 15px;
+            }
+
+            .menu-opcao {
+                display: inline-block;
+                width: auto;
+                margin: 3px;
+                padding: 12px;
+            }
+
+            .conteudo {
+                margin-left: 0;
+                padding: 24px 16px;
+            }
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; padding: 40px; background-color: #f4f4f9;">
-    <h2>Simulador de Postagem Avançado (Limite: 100 caracteres)</h2>
-    
-    <input type="text" id="campo-postagem" maxlength="100" placeholder="Escreva seu post aqui..." style="width: 400px; padding: 12px; font-size: 16px;">
-    <button id="btn-publicar" style="padding: 12px 20px; font-size: 16px; cursor: pointer;">Publicar</button>
-    
-    <!-- Área onde o sistema vai mostrar alertas ou mensagens de erro -->
-    <p id="mensagem-alerta" style="color: red; font-weight: bold; margin-top: 15px;"></p>
+
+<body>
+
+    <aside class="menu-lateral">
+        <div class="logo">◆ MEU PAINEL</div>
+        <div class="subtitulo">Organize sua vida</div>
+
+        <h3>Menu principal</h3>
+
+        <button class="menu-opcao vida ativa"
+                data-secao="vida">✦ &nbsp; Vida</button>
+
+        <button class="menu-opcao proposito"
+                data-secao="proposito">◎ &nbsp; Propósito</button>
+
+        <button class="menu-opcao saude"
+                data-secao="saude">✚ &nbsp; Saúde</button>
+
+        <button class="menu-opcao amor"
+                data-secao="amor">♡ &nbsp; Amor</button>
+
+        <button class="menu-opcao profissional"
+                data-secao="profissional">▣ &nbsp; Profissional</button>
+    </aside>
+
+    <main class="conteudo">
+        <header class="topo">
+            <h1 id="titulo">Vida</h1>
+            <p id="descricao">Organize suas ideias, seus planos e suas prioridades.</p>
+        </header>
+
+        <section class="painel">
+            <div class="linha" id="linha"></div>
+            <h2 id="subtitulo-painel">Minha vida</h2>
+            <p id="texto-painel">
+                Este é seu espaço pessoal. Escreva o que deseja melhorar,
+                suas metas e as ideias importantes para você.
+            </p>
+
+            <textarea id="anotacao"
+                placeholder="Escreva suas ideias aqui..."></textarea>
+
+            <button class="salvar" id="btn-salvar">
+                Salvar anotação
+            </button>
+
+            <p id="mensagem"></p>
+        </section>
+    </main>
 
     <script>
-        const input = document.getElementById('campo-postagem');
-        const btn = document.getElementById('btn-publicar');
-        const alerta = document.getElementById('mensagem-alerta');
-
-        btn.addEventListener('click', () => {
-            const texto = input.value.trim(); // Limpa os espaços das pontas automaticamente
-            if (texto === "") {
-                alerta.innerText = "Erro: O campo não pode ficar vazio!";
-            } else {
-                alerta.style.color = "green";
-                alerta.innerText = "Postado com sucesso!";
+        const secoes = {
+            vida: {
+                titulo: "Vida",
+                descricao: "Organize suas ideias, seus planos e suas prioridades.",
+                subtitulo: "Minha vida",
+                texto: "O que você quer realizar? Registre seus objetivos, planos e coisas importantes.",
+                cor: "#32cfff"
+            },
+            proposito: {
+                titulo: "Propósito",
+                descricao: "Descubra o que dá sentido à sua jornada.",
+                subtitulo: "Meu propósito",
+                texto: "Quais são seus valores, sonhos e objetivos de longo prazo?",
+                cor: "#bd83ff"
+            },
+            saude: {
+                titulo: "Saúde",
+                descricao: "Cuide do seu bem-estar físico e mental.",
+                subtitulo: "Meu bem-estar",
+                texto: "Registre hábitos saudáveis, consultas, descanso e metas de autocuidado.",
+                cor: "#4de39a"
+            },
+            amor: {
+                titulo: "Amor",
+                descricao: "Espaço para relacionamentos, carinho e conexões.",
+                subtitulo: "Meus relacionamentos",
+                texto: "Pense nas relações que deseja cultivar e nas atitudes que fortalecem os vínculos.",
+                cor: "#ff70ae"
+            },
+            profissional: {
+                titulo: "Profissional",
+                descricao: "Planeje sua carreira e seu desenvolvimento.",
+                subtitulo: "Minha carreira",
+                texto: "Registre seus projetos, habilidades que deseja desenvolver e metas profissionais.",
+                cor: "#ffb454"
             }
+        };
+
+        const botoes = document.querySelectorAll(".menu-opcao");
+        const titulo = document.getElementById("titulo");
+        const descricao = document.getElementById("descricao");
+        const subtituloPainel = document.getElementById("subtitulo-painel");
+        const textoPainel = document.getElementById("texto-painel");
+        const linha = document.getElementById("linha");
+        const anotacao = document.getElementById("anotacao");
+        const mensagem = document.getElementById("mensagem");
+
+        let secaoAtual = "vida";
+
+        // Mantém as anotações separadas por seção durante a sessão.
+        const anotacoes = {
+            vida: "",
+            proposito: "",
+            saude: "",
+            amor: "",
+            profissional: ""
+        };
+
+        function abrirSecao(nome) {
+            if (secaoAtual) {
+                anotacoes[secaoAtual] = anotacao.value;
+            }
+
+            secaoAtual = nome;
+            const dados = secoes[nome];
+
+            titulo.textContent = dados.titulo;
+            titulo.style.color = dados.cor;
+            descricao.textContent = dados.descricao;
+            subtituloPainel.textContent = dados.subtitulo;
+            subtituloPainel.style.color = dados.cor;
+            textoPainel.textContent = dados.texto;
+            linha.style.backgroundColor = dados.cor;
+            anotacao.value = anotacoes[nome];
+            mensagem.textContent = "";
+
+            botoes.forEach(botao => {
+                botao.classList.toggle(
+                    "ativa",
+                    botao.dataset.secao === nome
+                );
+            });
+        }
+
+        botoes.forEach(botao => {
+            botao.addEventListener("click", () => {
+                abrirSecao(botao.dataset.secao);
+            });
         });
+
+        document.getElementById("btn-salvar")
+            .addEventListener("click", () => {
+                anotacoes[secaoAtual] = anotacao.value;
+                mensagem.style.color = secoes[secaoAtual].cor;
+                mensagem.textContent =
+                    "Anotação guardada nesta sessão!";
+            });
     </script>
+
 </body>
 </html>
