@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Pessoal do Sady</title>
+
+    <title>Site Pessoal do Sady</title>
 
     <style>
         * {
@@ -18,7 +19,6 @@
             color: #eeeeff;
         }
 
-        /* MENU LATERAL */
         .menu-lateral {
             width: 250px;
             height: 100vh;
@@ -34,11 +34,11 @@
             font-size: 21px;
             font-weight: bold;
             text-align: center;
-            color: #ffffff;
+            color: #32cfff;
             margin-bottom: 8px;
         }
 
-        .subtitulo {
+        .subtitulo-menu {
             text-align: center;
             color: #85859a;
             font-size: 12px;
@@ -81,7 +81,6 @@
         .amor { color: #ff70ae; }
         .profissional { color: #ffb454; }
 
-        /* CONTEÚDO PRINCIPAL */
         .conteudo {
             margin-left: 250px;
             padding: 45px;
@@ -96,7 +95,7 @@
         .topo h1 {
             margin: 0 0 10px;
             font-size: 30px;
-            color: #ffffff;
+            color: #32cfff;
         }
 
         .topo p {
@@ -143,22 +142,22 @@
         }
 
         textarea:focus {
-            outline: 1px solid #7777ff;
+            outline: 1px solid #32cfff;
         }
 
         .salvar {
             margin-top: 14px;
             padding: 12px 20px;
-            background: #292942;
-            color: #b9b9ff;
-            border: 1px solid #5555a0;
+            background: #102b42;
+            color: #32cfff;
+            border: 1px solid #32cfff;
             border-radius: 7px;
             cursor: pointer;
             font-weight: bold;
         }
 
         .salvar:hover {
-            background: #38385c;
+            background: #17405f;
         }
 
         #mensagem {
@@ -176,7 +175,7 @@
                 border-bottom: 1px solid #30303b;
             }
 
-            .subtitulo {
+            .subtitulo-menu {
                 margin-bottom: 20px;
             }
 
@@ -202,49 +201,77 @@
 <body>
 
     <aside class="menu-lateral">
-        <div class="logo">◆ MEU PAINEL</div>
-        <div class="subtitulo">Organize sua vida</div>
+        <div class="logo">◆ SADY</div>
+        <div class="subtitulo-menu">Meu espaço pessoal</div>
 
         <h3>Menu principal</h3>
 
         <button class="menu-opcao vida ativa"
-                data-secao="vida">✦ &nbsp; Vida</button>
+                data-secao="vida"
+                data-testid="menu-vida">
+            ✦ &nbsp; Vida
+        </button>
 
         <button class="menu-opcao proposito"
-                data-secao="proposito">◎ &nbsp; Propósito</button>
+                data-secao="proposito"
+                data-testid="menu-proposito">
+            ◎ &nbsp; Propósito
+        </button>
 
         <button class="menu-opcao saude"
-                data-secao="saude">✚ &nbsp; Saúde</button>
+                data-secao="saude"
+                data-testid="menu-saude">
+            ✚ &nbsp; Saúde
+        </button>
 
         <button class="menu-opcao amor"
-                data-secao="amor">♡ &nbsp; Amor</button>
+                data-secao="amor"
+                data-testid="menu-amor">
+            ♡ &nbsp; Amor
+        </button>
 
         <button class="menu-opcao profissional"
-                data-secao="profissional">▣ &nbsp; Profissional</button>
+                data-secao="profissional"
+                data-testid="menu-profissional">
+            ▣ &nbsp; Profissional
+        </button>
     </aside>
 
     <main class="conteudo">
         <header class="topo">
-            <h1 id="titulo">Vida</h1>
-            <p id="descricao">Organize suas ideias, seus planos e suas prioridades.</p>
+            <h1 id="titulo" data-testid="titulo-secao">
+                Site Pessoal do Sady
+            </h1>
+            <p id="descricao">
+                Bem-vindo ao meu espaço pessoal!
+            </p>
         </header>
 
         <section class="painel">
             <div class="linha" id="linha"></div>
+
             <h2 id="subtitulo-painel">Minha vida</h2>
+
             <p id="texto-painel">
-                Este é seu espaço pessoal. Escreva o que deseja melhorar,
-                suas metas e as ideias importantes para você.
+                Este é meu espaço pessoal. Aqui vou organizar
+                minhas informações, ideias, projetos e objetivos.
             </p>
 
-            <textarea id="anotacao"
-                placeholder="Escreva suas ideias aqui..."></textarea>
+            <textarea
+                id="anotacao"
+                data-testid="campo-anotacao"
+                placeholder="Escreva suas ideias aqui..."
+            ></textarea>
 
-            <button class="salvar" id="btn-salvar">
+            <button
+                class="salvar"
+                id="btn-salvar"
+                data-testid="botao-salvar"
+            >
                 Salvar anotação
             </button>
 
-            <p id="mensagem"></p>
+            <p id="mensagem" data-testid="mensagem-status"></p>
         </section>
     </main>
 
@@ -252,37 +279,41 @@
         const secoes = {
             vida: {
                 titulo: "Vida",
-                descricao: "Organize suas ideias, seus planos e suas prioridades.",
+                descricao: "Bem-vindo ao meu espaço pessoal!",
                 subtitulo: "Minha vida",
-                texto: "O que você quer realizar? Registre seus objetivos, planos e coisas importantes.",
+                texto: "Aqui vou organizar minhas ideias, meus planos e minhas prioridades.",
                 cor: "#32cfff"
             },
+
             proposito: {
                 titulo: "Propósito",
-                descricao: "Descubra o que dá sentido à sua jornada.",
+                descricao: "Meus sonhos e objetivos.",
                 subtitulo: "Meu propósito",
-                texto: "Quais são seus valores, sonhos e objetivos de longo prazo?",
+                texto: "Aqui vou registrar meus valores, sonhos e objetivos de longo prazo.",
                 cor: "#bd83ff"
             },
+
             saude: {
                 titulo: "Saúde",
-                descricao: "Cuide do seu bem-estar físico e mental.",
-                subtitulo: "Meu bem-estar",
-                texto: "Registre hábitos saudáveis, consultas, descanso e metas de autocuidado.",
+                descricao: "Meu bem-estar em primeiro lugar.",
+                subtitulo: "Minha saúde",
+                texto: "Aqui vou organizar informações sobre hábitos saudáveis e autocuidado.",
                 cor: "#4de39a"
             },
+
             amor: {
                 titulo: "Amor",
-                descricao: "Espaço para relacionamentos, carinho e conexões.",
+                descricao: "Relacionamentos e conexões importantes.",
                 subtitulo: "Meus relacionamentos",
-                texto: "Pense nas relações que deseja cultivar e nas atitudes que fortalecem os vínculos.",
+                texto: "Aqui vou registrar reflexões sobre relacionamentos, carinho e conexões.",
                 cor: "#ff70ae"
             },
+
             profissional: {
                 titulo: "Profissional",
-                descricao: "Planeje sua carreira e seu desenvolvimento.",
+                descricao: "Meus projetos e minha carreira.",
                 subtitulo: "Minha carreira",
-                texto: "Registre seus projetos, habilidades que deseja desenvolver e metas profissionais.",
+                texto: "Aqui vou organizar meus projetos, habilidades e objetivos profissionais.",
                 cor: "#ffb454"
             }
         };
@@ -290,7 +321,8 @@
         const botoes = document.querySelectorAll(".menu-opcao");
         const titulo = document.getElementById("titulo");
         const descricao = document.getElementById("descricao");
-        const subtituloPainel = document.getElementById("subtitulo-painel");
+        const subtituloPainel =
+            document.getElementById("subtitulo-painel");
         const textoPainel = document.getElementById("texto-painel");
         const linha = document.getElementById("linha");
         const anotacao = document.getElementById("anotacao");
@@ -298,7 +330,6 @@
 
         let secaoAtual = "vida";
 
-        // Mantém as anotações separadas por seção durante a sessão.
         const anotacoes = {
             vida: "",
             proposito: "",
@@ -308,11 +339,9 @@
         };
 
         function abrirSecao(nome) {
-            if (secaoAtual) {
-                anotacoes[secaoAtual] = anotacao.value;
-            }
-
+            anotacoes[secaoAtual] = anotacao.value;
             secaoAtual = nome;
+
             const dados = secoes[nome];
 
             titulo.textContent = dados.titulo;
@@ -322,13 +351,18 @@
             subtituloPainel.style.color = dados.cor;
             textoPainel.textContent = dados.texto;
             linha.style.backgroundColor = dados.cor;
+
             anotacao.value = anotacoes[nome];
             mensagem.textContent = "";
 
             botoes.forEach(botao => {
-                botao.classList.toggle(
-                    "ativa",
-                    botao.dataset.secao === nome
+                const selecionado =
+                    botao.dataset.secao === nome;
+
+                botao.classList.toggle("ativa", selecionado);
+                botao.setAttribute(
+                    "aria-current",
+                    selecionado ? "page" : "false"
                 );
             });
         }
@@ -342,10 +376,13 @@
         document.getElementById("btn-salvar")
             .addEventListener("click", () => {
                 anotacoes[secaoAtual] = anotacao.value;
+
                 mensagem.style.color = secoes[secaoAtual].cor;
                 mensagem.textContent =
                     "Anotação guardada nesta sessão!";
             });
+
+        abrirSecao("vida");
     </script>
 
 </body>
